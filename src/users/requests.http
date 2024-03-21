@@ -1,7 +1,29 @@
+### Create a new user
 POST http://localhost:3000/auth/signup
 Content-Type:  application/json
 
 {
-    "email": "ibrahimlokman.bd@gmail.com",
-    "password": "dummypassword"
+    "email": "ibrahimlokmans@gmail.com",
+    "password": "dummypassword2"
+}
+
+### Find user by id
+GET http://localhost:3000/auth/6
+
+### Find user by email
+GET http://localhost:3000/auth?email=ibrahimlokman@gmail.com
+
+### Find all user
+GET http://localhost:3000/auth
+
+### Delete user by id
+DELETE http://localhost:3000/auth/3
+
+### Update user
+PATCH http://localhost:3000/auth/2
+Content-Type:  application/json
+
+{
+    "email": "ibrahimlokmanUpadated@gmail.com",
+    "password": "dummypasswordUpdated"
 }

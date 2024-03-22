@@ -8,7 +8,7 @@ Content-Type:  application/json
 }
 
 ### Find user by id
-GET http://localhost:3000/auth/6
+GET http://localhost:3000/auth/1
 
 ### Find user by email
 GET http://localhost:3000/auth?email=ibrahimlokman@gmail.com

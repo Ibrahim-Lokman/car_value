@@ -5,7 +5,9 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 
+
 @Controller('auth')
+@Serialize(UserDto)
 export class UsersController {
     constructor(private userService: UsersService) { }
     @Post('/signup')
@@ -16,7 +18,7 @@ export class UsersController {
         return this.userService.create(email, password);
     }
 
-    @Serialize(UserDto)
+
     @Get('/:id')
     async findUser(@Param('id') id: string) {
         console.log('Handler is running');

@@ -36,3 +36,9 @@ Content-Type:  application/json
     "email": "ibrahimlokmanUpadated@gmail.com",
     "password": "dummypasswordUpdated"
 }
+
+### Set a color
+GET http://localhost:3000/auth/colors/red
+
+### Get a color
+GET http://localhost:3000/auth/colors

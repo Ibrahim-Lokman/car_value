@@ -12,28 +12,43 @@ import { AuthService } from './auth.service';
 export class UsersController {
     constructor(private userService: UsersService, private authService: AuthService) { }
 
-    @Get('/colors/:color')
-    setColor(@Param('color') color: string, @Session() session: any) {
-        session.color = color;
-    }
+    // @Get('/colors/:color')
+    // setColor(@Param('color') color: string, @Session() session: any) {
+    //     session.color = color;
+    // }
 
-    @Get('/colors')
-    getColor(@Session() session: any) {
-        return session.color;
+    // @Get('/colors')
+    // getColor(@Session() session: any) {
+    //     return session.color;
+    // }
+
+    @Get('/whoami')
+    whoAmI(@Session() session: any) {
+        return this.userService.findOne(session.userId);
     }
 
     @Post('/signup')
-    createUser(@Body() body: CreateUserDto) {
+    async createUser(@Body() body: CreateUserDto, @Session() session: any) {
         const { email, password } = body;
         console.log(email, password);
         console.log("**************");
-        return this.authService.signup(email, password);
+        const user = await this.authService.signup(email, password);
+        session.userId = user.id;
+        return user;
+
+    }
+
+    @Post('/signout')
+    signout(@Session() session: any) {
+        session.userId = null;
     }
 
     @Post('/signin')
-    signin(@Body() body: CreateUserDto) {
+    async signin(@Body() body: CreateUserDto, @Session() session: any) {
         const { email, password } = body;
-        return this.authService.signin(email, password);
+        const user = await this.authService.signin(email, password);
+        session.userId = user.id;
+        return user;
     }
 
     @Get('/:id')

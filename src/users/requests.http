@@ -7,6 +7,9 @@ Content-Type:  application/json
     "password": "dummypassword2"
 }
 
+### who am i
+GET http://localhost:3000/auth/whoami
+
 ### Sign in
 POST http://localhost:3000/auth/signin
 Content-Type:  application/json
@@ -15,6 +18,9 @@ Content-Type:  application/json
     "email": "ibrahimlokman.hash@gmail.com",
     "password": "dummypassword2"
 }
+
+### Sign out
+POST http://localhost:3000/auth/signout
 
 ### Find user by id
 GET http://localhost:3000/auth/1

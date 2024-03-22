@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, Session } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, Session, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -7,6 +7,7 @@ import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './user.entity';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 
 @Controller('auth')
@@ -30,6 +31,7 @@ export class UsersController {
     // }
 
     @Get('/whoami')
+    @UseGuards(AuthGuard)
     whoAmI(@CurrentUser() user: User) {
         console.log(user);
         return user;
@@ -61,6 +63,7 @@ export class UsersController {
     }
 
     @Get('/:id')
+    @UseGuards(AuthGuard)
     async findUser(@Param('id') id: string) {
         console.log('Handler is running');
         const user = await this.userService.findOne(parseInt(id));
@@ -72,11 +75,13 @@ export class UsersController {
     }
 
     @Get()
+    @UseGuards(AuthGuard)
     findAllUsers(@Query('email') email: string) {
         return this.userService.find(email);
     }
 
     @Delete('/:id')
+
     removeUser(@Param('id') id: string) {
         return this.userService.remove(parseInt(id));
     }
